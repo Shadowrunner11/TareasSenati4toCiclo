@@ -5,7 +5,7 @@ const ChatBox = props => {
         <div>
             <div style={{display:"flex"}}>
             <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-            <p>Hola como estas</p>
+            <p>Que numero a romanos quieres convertir</p>
             </div>
             {props.messages.map((e,i)=>{
                 return(
