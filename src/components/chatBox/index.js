@@ -32,7 +32,7 @@ const ChatBox = props =>{
         <div style={{width:400, position:"fixed", bottom:10, right:20}}>
             <ChatMenu onClick={toggleShow}/>
             {show && <div>
-                        <div style={{overflow:"auto", height:300}}>
+                        <div style={{overflowY:"auto", height:400}}>
                             {renderMessages()}
                         </div>
                         <ChatInputWithMemo sendMessage={sendMessage}/>
