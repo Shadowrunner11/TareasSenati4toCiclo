@@ -31,7 +31,7 @@ const ChatBox = props =>{
     return (
         <div style={{width:400, position:"fixed", bottom:10, right:20}}>
             <ChatMenu onClick={toggleShow}/>
-            {show && <div>
+            {show && <div style={{borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%"}}>
                         <div style={{overflowY:"auto", height:400}}>
                             {renderMessages()}
                         </div>

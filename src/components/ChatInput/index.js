@@ -15,9 +15,9 @@ const ChatInput = ({type, sendMessage}) => {
     useEffect(()=>{console.log("aaaa")})
 
     return(
-        <div>
-            <input id={"inputMessage"}  type={type} autoComplete={"off"} />
-            <button onClick={handleClick}><i></i>Send</button>
+        <div style={{borderRadius:3, borderTop:"1px solid white", padding:"1% 4% 1% 4%"}}>
+            <input style={{width:"80%"}} id={"inputMessage"}  type={type} autoComplete={"off"} />
+            <button style= {{width: "15%"}}onClick={handleClick}><i></i>Send</button>
         </div>
     )
 }
