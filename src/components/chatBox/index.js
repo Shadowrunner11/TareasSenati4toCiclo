@@ -22,6 +22,10 @@ const ChatBox = props =>{
         document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
     },[messages])
 
+    useEffect(()=>{
+        document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
+    })
+
     const sendMessage = (message)=>{
         setMessages([...messages, message])
     }
