@@ -1,5 +1,5 @@
 import json
-from flask import Flask,render_template, request
+from flask import Flask, request
 from flask_cors import CORS, cross_origin
 from romanizer import romanize
 app = Flask(__name__)
