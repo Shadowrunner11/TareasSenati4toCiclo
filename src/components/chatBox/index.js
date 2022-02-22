@@ -19,6 +19,7 @@ const ChatBox = props =>{
     useEffect(()=>{
         console.log(messages.slice(-1))
         if(messages.slice(-1)[0]?.from==="sender") setMessages([...messages,{from:"reciever", date:Date.now(), text:"Hola"}])
+        document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
     },[messages])
 
     const sendMessage = (message)=>{
@@ -31,12 +32,14 @@ const ChatBox = props =>{
     return (
         <div style={{width:400, position:"fixed", bottom:10, right:20}}>
             <ChatMenu onClick={toggleShow}/>
-            {show && <div style={{borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%"}}>
+            {show && <div style={{borderRadius:3, border:"1px solid white"}}>
                         <div style={{overflowY:"auto", height:400}}>
                             {renderMessages()}
+                            <div id="dummyDiv"></div>
                         </div>
                         <ChatInputWithMemo sendMessage={sendMessage}/>
                     </div>}
+            
         </div>
     )
 

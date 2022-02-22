@@ -15,7 +15,7 @@ const MessageBox = ({from, text, date}) =>{
     return(
         <div style={{...style, marginBottom:20, marginTop:20, minHeight:"10%"}}>
         
-            <div style={{width: "60%", borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%"}}>
+            <div style={{width: "60%", borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%", margin:"0 2% 0 2%"}}>
                 <p>{text}</p>
             </div>
             {//Ver la posibilidad de almacernar este calculo
