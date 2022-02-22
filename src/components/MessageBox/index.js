@@ -17,10 +17,14 @@ const MessageBox = ({from, text, date}) =>{
             <div style={{width: "70%"}}>
                 {text}
             </div>
-            <time style={{width:"10%"}}>{new Date(date*1000).toLocaleTimeString("en-US")}</time>
+            {//Ver la posibilidad de almacernar este calculo
+            }
+            <time style={{width:"10%"}}>{new Date(date).toLocaleTimeString("en-US", {timeStyle: "short"})}</time>
 
         </div>
     )
 }
+
+//Crear imlementacion de withMemo de este componente para ahorrar memoria
 
 export {MessageBox}
