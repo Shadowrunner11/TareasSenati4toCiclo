@@ -1,5 +1,6 @@
 import os
 from flask import Flask, jsonify
+from flask_cors import CORS
 from api.config import * 
 from api.utils.database import db
 from api.utils.responses import response_with
@@ -19,7 +20,12 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
+
+
 app.register_blueprint(author_routes, url_prefix='/api/authors')
+cors = CORS(app, resources={r'/*': {"origins": '*'}})
+
+
 
 # START GLOBAL HTTP CONFIGURATIONS
 @app.after_request

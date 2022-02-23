@@ -4,7 +4,11 @@ from api.utils import responses as resp
 from api.modelos.author import Author, AuthorSchema
 from api.utils.database import db
 
+
 author_routes = Blueprint("author_routes", __name__)
+
+
+
 
 @author_routes.route('/', methods=['POST'])
 def create_author():
