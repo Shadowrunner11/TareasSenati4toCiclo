@@ -24,3 +24,4 @@ yarn-error.log*
 
 /apiTienda/Pipfile
 /apiTienda/Pipfile.lock
+/apiTienda/foo.db

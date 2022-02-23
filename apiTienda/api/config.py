@@ -11,7 +11,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG= True
-    SQLACHEMY_DATABASE_URI = ""
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///D:foo.db'
     SQALCHEMY_ECHO = False
 
 class TestingConfig(Config):

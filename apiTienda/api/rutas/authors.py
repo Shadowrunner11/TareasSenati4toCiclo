@@ -12,12 +12,12 @@ author_routes = Blueprint("author_routes", __name__)
 def create_author():
     try:
         data = request.get_json()
-        print(data)
         author_schema = AuthorSchema()
-        author, error = author_schema.load(data)
-        print(author_schema.dump(author))
-        return response_with(resp.SUCCESS_201, value={"author": data})
-        result = author_schema.dump(author.create()).data
+        author = Author(**data).create()
+        #author, error = author_schema.load(data)
+        result =author_schema.dump(author)
+       
+        
         return response_with(resp.SUCCESS_201, value={"author": result})
     except Exception as e:
         return response_with(resp.INVALID_INPUT_422)

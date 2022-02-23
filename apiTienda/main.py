@@ -12,6 +12,7 @@ app = Flask(__name__)
 options={"PROD":ProductionConfig, "TEST": TestingConfig, "DEV":DevelopmentConfig}
 
 app_config=options[os.environ.get('WORK_ENV')]
+print(app_config)
 
 app.config.from_object(app_config)
 
