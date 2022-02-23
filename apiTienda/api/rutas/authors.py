@@ -8,14 +8,15 @@ from api.utils.database import db
 author_routes = Blueprint("author_routes", __name__)
 
 
-
-
 @author_routes.route('/', methods=['POST'])
 def create_author():
     try:
         data = request.get_json()
+        print(data)
         author_schema = AuthorSchema()
         author, error = author_schema.load(data)
+        print(author_schema.dump(author))
+        return response_with(resp.SUCCESS_201, value={"author": data})
         result = author_schema.dump(author.create()).data
         return response_with(resp.SUCCESS_201, value={"author": result})
     except Exception as e:

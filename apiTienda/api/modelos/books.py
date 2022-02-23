@@ -1,5 +1,5 @@
 from api.utils.database import db
-from marshmallow_sqlalchemy import SQLAlchemySchema
+from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from marshmallow import fields
 
 class Book(db.Model):
@@ -24,12 +24,12 @@ class Book(db.Model):
         return self
     
 class BookSchema(SQLAlchemySchema):
-    class Meta(SQLAlchemySchema.Meta):
+    class Meta:
         model = Book
         sqla_session = db.session
-    id = fields.Number(dump_only=True)
-    title = fields.String(required = True)
-    year = fields.Integer(required = True)
-    price = fields.Float(required = True)
-    stock = fields.Integer(required = True)
-    author_id = fields.Integer()
+    id = auto_field()
+    title = auto_field()
+    year = auto_field()
+    price = auto_field()
+    stock = auto_field()
+    author_id = auto_field()

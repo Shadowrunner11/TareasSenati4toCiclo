@@ -1,7 +1,8 @@
 from api.utils.database import db
-from marshmallow_sqlalchemy import SQLAlchemySchema
+from marshmallow_sqlalchemy import SQLAlchemySchema, auto_field
 from marshmallow import fields
 from api.modelos.books import BookSchema
+
 class Author(db.Model):
     __tablename__ = 'authors'
 
@@ -22,12 +23,12 @@ class Author(db.Model):
         return self
 
 class AuthorSchema(SQLAlchemySchema):
-    class Meta(SQLAlchemySchema.Meta):
+    class Meta:
         model = Author
         sqla_session = db.session
 
-    id = fields.Number(dump_only=True)
-    first_name = fields.String(required=True)
-    last_name = fields.String(required=True)
-    created = fields.String(dump_only=True)
-    books = fields.Nested(BookSchema, many=True, only=['title','year','id', 'price', 'stock'])
+    id = auto_field()
+    first_name = auto_field()
+    last_name = auto_field()
+    created = auto_field()
+    books = auto_field()
