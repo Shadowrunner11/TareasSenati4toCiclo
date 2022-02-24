@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { functions } from "../../utils/requests/requests";
+import { processText } from "../../utils/textProcessing/textProcessing";
 import { ChatInputWithMemo } from "../ChatInput";
 import { ChatMenu } from "../ChatMenu";
 import { MessageBox } from "../MessageBox";
@@ -17,9 +19,23 @@ const ChatBox = props =>{
     const [status, setStatus] = useState(false)
 
     useEffect(()=>{
-        console.log(messages.slice(-1))
-        if(messages.slice(-1)[0]?.from==="sender") setMessages([...messages,{from:"reciever", date:Date.now(), text:"Hola"}])
-        document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
+        
+        if(messages.slice(-1)[0]?.from==="sender") {
+            
+            const callbacks={
+                echo: ()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"No entiendo", textType:"normal"}])},
+
+                "getAllAuthors":(text)=>{
+                    setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"list"}])
+                    document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
+                }
+            }
+            
+            const textProcessed = processText(messages.slice(-1)[0].text)
+            
+            functions[textProcessed](callbacks[textProcessed])
+            
+        }
     },[messages])
 
     useEffect(()=>{

@@ -7,7 +7,8 @@ const ChatInput = ({type, sendMessage}) => {
         const message = {
             text: input.value,
             date: Date.now(),
-            from: "sender"
+            from: "sender",
+            textType: "normal"
         }
         sendMessage(message)
         input.value = null

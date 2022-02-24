@@ -1,6 +1,6 @@
 import React from "react";
 
-const MessageBox = ({from, text, date}) =>{
+const MessageBox = ({from, text, date, textType}) =>{
     const flag = from==="sender"
     const style ={
         display: "flex",
@@ -16,7 +16,8 @@ const MessageBox = ({from, text, date}) =>{
         <div style={{...style, marginBottom:20, marginTop:20, minHeight:"10%"}}>
         
             <div style={{width: "60%", borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%", margin:"0 2% 0 2%"}}>
-                <p>{text}</p>
+                {textType==="list" && <pre>{text}</pre>}
+                {textType==="normal" && <p>{text}</p>}
             </div>
             {//Ver la posibilidad de almacernar este calculo
             //Cunado el mensaje es muy grande no se ajusta el heigt del widht
