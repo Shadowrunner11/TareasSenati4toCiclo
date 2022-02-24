@@ -11,7 +11,6 @@ const API_ROUTES_DEV ={
 
 const formatAuthors = e =>`- ${e.first_name} ${e.last_name} \n`
 const functions ={
-    echo:(callback)=>{callback()},
 
     getAllAuthors: (callback=ans=>{console.log(ans)}, name="")=>{
         fetch(API_ROUTES_DEV.GET.authorsByName(name))

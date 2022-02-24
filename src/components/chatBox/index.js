@@ -23,17 +23,29 @@ const ChatBox = props =>{
         if(messages.slice(-1)[0]?.from==="sender") {
             
             const callbacks={
-                echo: ()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"No entiendo", textType:"normal"}])},
+                echo: ()=>{
+                    setTimeout(()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"No entiendo", textType:"normal"}])}, 1000)
+                },
 
-                "getAllAuthors":(text)=>{
+                searchAutor:()=>{
+                    
+                },
+
+                easterEgg:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Es tiempo de la rebelion de las maquinas", textType:"normal"}])},
+
+                greeting:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Hola. como te puedo ayudar", textType:"normal"}])},
+                
+                getAllAuthors:()=>{
+                functions.getAllAuthors(
+                (text)=>{
                     setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"list"}])
                     document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
-                }
+                })}
             }
             
             const textProcessed = processText(messages.slice(-1)[0].text)
             
-            functions[textProcessed](callbacks[textProcessed])
+           callbacks[textProcessed]()
             
         }
     },[messages])
