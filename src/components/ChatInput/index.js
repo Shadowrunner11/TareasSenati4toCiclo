@@ -10,7 +10,10 @@ const ChatInput = ({type, sendMessage}) => {
             from: "sender",
             textType: "normal"
         }
-        sendMessage(message)
+        if (input.value){
+            sendMessage(message)
+        }
+        
         input.value = null
     }
 

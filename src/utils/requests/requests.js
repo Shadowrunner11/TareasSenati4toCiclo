@@ -45,10 +45,10 @@ const functions ={
             .then(data=>{
                 if(data?.code==="success"){
                     document.cookie=`token=${data.access_token}`
-                    callback("Ingreso exitoso")
+                    callback(`Hola ${username}, bienvenido`)
                 }
                 else{
-                    callback("Algo salio mal")
+                    callback("Algo salio mal, verifica si tu usuario y contrasenia son correctos")
                 }
             }
             )

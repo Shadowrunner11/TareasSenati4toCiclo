@@ -15,8 +15,8 @@ const MessageBox = ({from, text, date, textType}) =>{
     return(
         <div style={{...style, marginBottom:0, marginTop:0, minHeight:"10%"}}>
         
-            <div style={{width: "60%",  padding:"", margin:"5px 0px"}}>
-                {textType==="list" && <pre>{text}</pre>}
+            <div style={{width: "60%",  padding:"", margin:"5px 0px", }}>
+                {textType==="list" && <pre style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px"}}>{text}</pre>}
                 {textType==="normal" && 
                     <div style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px"}}>{text}</div>}
             </div>
