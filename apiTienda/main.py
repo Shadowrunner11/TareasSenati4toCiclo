@@ -6,15 +6,20 @@ from api.utils.database import db
 from api.utils.responses import response_with
 import api.utils.responses as resp
 from api.rutas.authors import author_routes
+from api.rutas.books import books_routes
+from flask_jwt_extended import JWTManager
+from api.rutas.user import user_routes
 
 app = Flask(__name__)
 
 options={"PROD":ProductionConfig, "TEST": TestingConfig, "DEV":DevelopmentConfig}
 
 app_config=options[os.environ.get('WORK_ENV')]
-print(app_config)
+
 
 app.config.from_object(app_config)
+
+jwt = JWTManager(app)
 
 db.init_app(app)
 
@@ -24,6 +29,9 @@ with app.app_context():
 
 
 app.register_blueprint(author_routes, url_prefix='/api/authors')
+app.register_blueprint(books_routes, url_prefix='/api/books')
+app.register_blueprint(user_routes, url_prefix='/api/users')
+
 cors = CORS(app, resources={r'/*': {"origins": '*'}})
 
 

@@ -16,6 +16,10 @@ const processText= (mensaje)=>{
         return "easterEgg"
     }
 
+    if(mensaje.includes("login")) return "login"
+
+    if(mensaje.includes("registrase") || mensaje.includes("registrame")) return "register"
+
     return "echo"
     
 } 

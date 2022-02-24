@@ -13,6 +13,9 @@ class DevelopmentConfig(Config):
     DEBUG= True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///D:foo.db'
     SQALCHEMY_ECHO = False
+    JWT_SECRET_KEY = 'JWT-SECRET'
+    SECRET_KEY= 'SECRET-KEY'
+    SECURITY_PASSWORD_SALT= 'SECRET-KEY-PASSWORD'
 
 class TestingConfig(Config):
     TESTING=True

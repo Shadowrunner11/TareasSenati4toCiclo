@@ -15,40 +15,101 @@ const useToggle = initial =>{
 const ChatBox = props =>{
 
     const [messages, setMessages]= useState([])
+    const [username, setUsername] =useState("")
+    const [password, setPassword] =useState("")
+    const [token, setToken] =useState("")
     const [show, toggleShow]= useToggle(false)
     const [status, setStatus] = useState(false)
+    const [loginStatus, toggleLogin] = useToggle(false)
+    const [passStatus, togglePassword] = useToggle(false)
 
-    useEffect(()=>{
+
+
+    //considerar usar usecallback
+    const callbacks={
+        echo: ()=>{
+            setTimeout(()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"No entiendo", textType:"normal"}])}, 1000)
+        },
+
+        searchAutor:()=>{
+            
+        },
+        login: ()=>{
+            setMessages([...messages,{from:"reciever", date:Date.now(), text:"Ingrese su nombre de usuario y luego contrasenia", textType:"normal"}])
+            
+        },
+
+        easterEgg:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Es tiempo de la rebelion de las maquinas", textType:"normal"}])},
+
+        greeting:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Hola. como te puedo ayudar", textType:"normal"}])},
         
-        if(messages.slice(-1)[0]?.from==="sender") {
-            
-            const callbacks={
-                echo: ()=>{
-                    setTimeout(()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"No entiendo", textType:"normal"}])}, 1000)
-                },
+        getAllAuthors:()=>{
+        functions.getAllAuthors(
+        (text)=>{
+            setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"list"}])
+            //document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
+        })},
 
-                searchAutor:()=>{
-                    
-                },
+        register: ()=>{
+            setMessages([...messages,{from:"reciever", date:Date.now(), text:"Ingrese su nombre de usuario y luego contrasenia para el registro", textType:"normal"}])
+        }
 
-                easterEgg:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Es tiempo de la rebelion de las maquinas", textType:"normal"}])},
+        
+    }
+    useEffect(()=>{
 
-                greeting:()=>{setMessages([...messages,{from:"reciever", date:Date.now(), text:"Hola. como te puedo ayudar", textType:"normal"}])},
-                
-                getAllAuthors:()=>{
-                functions.getAllAuthors(
-                (text)=>{
-                    setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"list"}])
-                    document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
-                })}
+        const lastMessage =messages.slice(-1)[0]
+        
+        if(lastMessage?.from==="reciever"){
+            if(lastMessage.text==="Ingrese su nombre de usuario y luego contrasenia"){
+                toggleLogin()
             }
-            
-            const textProcessed = processText(messages.slice(-1)[0].text)
-            
-           callbacks[textProcessed]()
+        }
+
+        if(lastMessage?.from==="reciever"){
+            if(lastMessage.text==="Ingrese su nombre de usuario y luego contrasenia para el registro"){
+                toggleLogin()
+            }
+        }
+
+
+
+        if(messages.slice(-1)[0]?.from==="sender") {
+               
+            const textProcessed = processText(messages.slice(-1)[0].text)           
+            callbacks[textProcessed]()
             
         }
     },[messages])
+
+    useEffect(()=>{
+        if(messages.length){
+            togglePassword()
+            toggleLogin()
+        }
+        
+    },[username])
+
+    useEffect(()=>{
+        if(messages.length){
+            console.log(messages)
+            console.log(username,password)
+            const lastMessage =messages.slice(-1)[0]
+            if(lastMessage.text==="Ingrese su nombre de usuario y luego contrasenia"){
+                functions.login(username.text,password.text,(mensaje)=>{
+                    setMessages([...messages,{from:"reciever", date:Date.now(), text:mensaje, textType:"normal"}])
+                } )
+                
+            }
+            if(lastMessage.text==="Ingrese su nombre de usuario y luego contrasenia para el registro"){
+                functions.register(username.text, password.text)
+            }
+            togglePassword()
+            
+
+        }
+
+    }, [password])
 
     useEffect(()=>{
         document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
@@ -69,7 +130,11 @@ const ChatBox = props =>{
                             {renderMessages()}
                             <div id="dummyDiv"></div>
                         </div>
-                        <ChatInputWithMemo sendMessage={sendMessage}/>
+
+                        {passStatus && <ChatInputWithMemo type={"password"} sendMessage={setPassword}/>}
+                        {loginStatus && <ChatInputWithMemo sendMessage={setUsername}/>}
+                        {(!loginStatus && !passStatus) && <ChatInputWithMemo sendMessage={sendMessage}/>}
+
                     </div>}
             
         </div>
