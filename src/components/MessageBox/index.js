@@ -7,22 +7,24 @@ const MessageBox = ({from, text, date, textType}) =>{
         alignItems: "flex-end",
         justifyContent: "flex-start",
         flexDirection: flag? "row-reverse":"row",
-        textAlign:flag? "right": "left"
+        textAlign:"left"
 
     }
 
 
     return(
-        <div style={{...style, marginBottom:20, marginTop:20, minHeight:"10%"}}>
+        <div style={{...style, marginBottom:0, marginTop:0, minHeight:"10%"}}>
         
-            <div style={{width: "60%", borderRadius:3, border:"1px solid white", padding:"1% 4% 1% 4%", margin:"0 2% 0 2%"}}>
+            <div style={{width: "60%",  padding:"", margin:"5px 0px"}}>
                 {textType==="list" && <pre>{text}</pre>}
-                {textType==="normal" && <p>{text}</p>}
+                {textType==="normal" && 
+                    <div style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px"}}>{text}</div>}
             </div>
             {//Ver la posibilidad de almacernar este calculo
             //Cunado el mensaje es muy grande no se ajusta el heigt del widht
             }
-            <time style={{width:"20%", height:"50%", margin:"0 4% 0 4%"}}>{new Date(date).toLocaleTimeString("en-US", {timeStyle: "short"})}</time>
+            <time style={{width:"20%", height:"50%", margin:"10px", fontSize:"12px"}}>
+            {new Date(date).toLocaleTimeString("en-US", {timeStyle: "short"})}</time>
 
         </div>
     )

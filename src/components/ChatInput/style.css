@@ -1,1 +1,28 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css);
+.formInput{
+    border-radius:10px;
+    border-top:1px solid white; 
+    padding:1% 4% 1% 4%; 
+    display:flex;
+    justify-content: space-around;
+}
+.textInput{
+    width:80%;
+    background:none;
+    border: none; 
+    border-bottom: 1px solid white;
+    padding:10px 15px;
+    color:white;
+}
+.textInput:focus{
+    border-radius:0px; 
+}
+.inputSend{
+    background-image: url('../../utils/image/send.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 5px;
+    background-size: contain;
+    width:25px;
+    height: 25px;
+}
