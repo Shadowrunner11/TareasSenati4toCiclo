@@ -4,17 +4,24 @@ const ENV={
 const API_ROUTES_DEV ={
     
     GET:{       
-        authorsByName: name => ENV.URI+"authors/"+name
+        authorsByName: name => ENV.URI+"authors/"+name,
+        booksByTitle: name=>ENV.URI+"books/"+name
     },
 
     POST:{
         login: ENV.URI+"users/login",
         register: ENV.URI+"users/"
+    },
+
+    PUT:{
+        buyBook: id => ENV.URI+"books/comprar/"+id
     }
  
 }
 
 const formatAuthors = e =>`- ${e.first_name} ${e.last_name} \n`
+const formatBooks = e =>` -${e.title} \nprecio :S/. ${e.price}  \nstock: ${e.stock}  \nid:${e.id}\n`
+
 const functions ={
 
     getAllAuthors: (callback=ans=>{console.log(ans)}, name="")=>{
@@ -66,6 +73,32 @@ const functions ={
                     password: password,
                 })
         }).then(response=>console.log(response))
+    },
+
+    getAllBooks: (callback=ans=>{console.log(ans)}, name="")=>{
+        fetch(API_ROUTES_DEV.GET.booksByTitle(name))
+            .then(response=>response.json())
+            .then(data=>{
+                let ans =""
+                data.authors.map(e=>ans+=formatBooks(e))
+                callback(ans)
+    
+            })
+    },
+
+    buyBook: (callback, id, cantidad=1)=>{
+        fetch(API_ROUTES_DEV.PUT.buyBook(id),{
+            method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json',
+                },
+                 body: JSON.stringify({
+                    cantidad: cantidad,
+                    
+                })
+        }).then(response=>response.json())
+        .then(data=>callback(data.book.title))
+            
     }
 
         

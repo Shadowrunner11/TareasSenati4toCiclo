@@ -1,3 +1,4 @@
+from distutils.log import info
 from flask import Blueprint, request
 from api.utils.responses import response_with
 from api.utils import responses as resp
@@ -22,9 +23,18 @@ def create_book():
         return response_with(resp.INVALID_INPUT_422)
 
 @books_routes.route('/', methods=['GET'])
-def get_author_list():
+def get_book_list():
 
     fetched = Book.query.all()
-    author_schema = BookSchema(many=True, only=['title', 'price', 'price', 'stock','author_id'])
+    author_schema = BookSchema(many=True, only=['title', 'price', 'stock','id'])
     authors= author_schema.dump(fetched)
     return response_with(resp.SUCCESS_200, value={"authors":authors})
+
+@books_routes.route('/comprar/<int:id>', methods=['PUT'])
+def buy_book(id):
+
+    data = request.get_json()
+    book = Book.buyBookbyId(id)
+    book_schema = BookSchema()
+    info = book_schema.dump(book)
+    return response_with(resp.SUCCESS_200, value = {'book': info})

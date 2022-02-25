@@ -23,6 +23,15 @@ class Book(db.Model):
         db.session.commit()
         return self
     
+    @classmethod
+    def buyBookbyId(cls, id, qty = 1):
+        book = cls.query.get_or_404(id)
+        book.stock-=qty
+        db.session.add(book)
+        db.session.commit()
+        return book
+
+    
 class BookSchema(SQLAlchemySchema):
     class Meta:
         model = Book

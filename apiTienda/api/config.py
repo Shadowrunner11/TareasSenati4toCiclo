@@ -11,7 +11,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG= True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///D:foo.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///foo.db'
     SQALCHEMY_ECHO = False
     JWT_SECRET_KEY = 'JWT-SECRET'
     SECRET_KEY= 'SECRET-KEY'

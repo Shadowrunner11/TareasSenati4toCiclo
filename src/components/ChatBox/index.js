@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useToggle } from "../../utils/hooks";
 import { functions } from "../../utils/requests/requests";
+import { ThemeContext, themes } from "../../utils/services/themes";
 import { processText } from "../../utils/textProcessing/textProcessing";
 import { ChatInputWithMemo } from "../ChatInput";
 import { ChatMenu } from "../ChatMenu";
 import { MessageBox } from "../MessageBox";
 import './style.css'
 
-const useToggle = initial =>{
-    const [show, setShow]=useState(initial)
-    const toggleShow = ()=>{setShow((prevShow)=>!prevShow)}
-    return [show, toggleShow]
 
-}
+
+
 
 const ChatBox = props =>{
 
     const [messages, setMessages]= useState([])
     const [username, setUsername] =useState("")
     const [password, setPassword] =useState("")
-    const [token, setToken] =useState("")
+    //const [token, setToken] =useState("")
     const [show, toggleShow]= useToggle(false)
     const [status, setStatus] = useState(false)
     const [loginStatus, toggleLogin] = useToggle(false)
@@ -53,10 +52,33 @@ const ChatBox = props =>{
 
         register: ()=>{
             setMessages([...messages,{from:"reciever", date:Date.now(), text:"Ingrese su nombre de usuario y luego contrasenia para el registro", textType:"normal"}])
-        }
+        },
+
+        buyBook: (id)=>{
+            functions.buyBook(
+                (title)=>{
+                    const text="Muchas gracias por su compra de "+title
+                    setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"normal"}])
+                }
+                ,id)
+        },
+
+        instructionsBuyBook: ()=>{
+            const text="Para comprar un libro necesito el id del libro, escribe algo como: comprar el libro con id 10"
+            setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"normal"}])
+         
+        },
+
+        getAllBooks: ()=>{
+            functions.getAllBooks(
+            (text)=>{
+                setMessages([...messages,{from:"reciever", date:Date.now(), text:text, textType:"list"}])
+                //document.getElementById("dummyDiv")?.scrollIntoView({behavior:"smooth"})
+            })},
 
         
     }
+
     useEffect(()=>{
 
         const lastMessage =messages.slice(-1)[0]
@@ -73,12 +95,12 @@ const ChatBox = props =>{
             }
         }
 
-
-
         if(messages.slice(-1)[0]?.from==="sender") {
                
-            const textProcessed = processText(messages.slice(-1)[0].text)           
-            callbacks[textProcessed]()
+            const textProcessed = processText(messages.slice(-1)[0].text)
+            console.log(textProcessed)
+            if (textProcessed[1]){callbacks[textProcessed[0]](textProcessed[1])}
+            else callbacks[textProcessed[0]]()
             
         }
     },[messages])
@@ -124,6 +146,7 @@ const ChatBox = props =>{
     }
 
     return (
+        <ThemeContext.Provider value={themes.dark}>
         <div style={{width:350, position:"fixed", bottom:10, right:20,borderRadius:'10px', border:"1px solid white",
                     }}>
             <ChatMenu onClick={toggleShow}/>
@@ -140,6 +163,7 @@ const ChatBox = props =>{
                     </div>}
             
         </div>
+        </ThemeContext.Provider>
     )
 
 }

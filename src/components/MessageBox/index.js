@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ThemeContext } from "../../utils/services/themes";
 
 const MessageBox = ({from, text, date, textType}) =>{
+    const theme = useContext(ThemeContext)
     const flag = from==="sender"
     const style ={
         display: "flex",
@@ -16,9 +18,9 @@ const MessageBox = ({from, text, date, textType}) =>{
         <div style={{...style, marginBottom:0, marginTop:0, minHeight:"10%"}}>
         
             <div style={{width: "60%",  padding:"", margin:"5px 0px", }}>
-                {textType==="list" && <pre style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px"}}>{text}</pre>}
+                {textType==="list" && <pre style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px", whiteSpace:"pre-wrap"}}>{text}</pre>}
                 {textType==="normal" && 
-                    <div style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px"}}>{text}</div>}
+                    <div style={{borderRadius:'8px', border:"1px solid white",padding:"10px 15px", wordBreak:"break-all"}}>{text}</div>}
             </div>
             {//Ver la posibilidad de almacernar este calculo
             //Cunado el mensaje es muy grande no se ajusta el heigt del widht
